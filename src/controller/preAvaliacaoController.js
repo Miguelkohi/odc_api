@@ -16,11 +16,11 @@ endpoints.get ('/preAvaliacao/', async (req, resp) => {
 })
 
 
-endpoints.post ('preAvaliacao/', async (req, resp) => {
+endpoints.post ('/preAvaliacao/', async (req, resp) => {
     try {
         let dominio = req.body; 
 
-        let id= await db.inserirDmn (dominio);
+        let id= await db.inserirAvaliacao (dominio);
 
         resp.send ({
             novoId: id

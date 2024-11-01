@@ -3,7 +3,7 @@ import con from "./connection.js";
 export async function inserirAvaliacao(avaliacao) {
     const comando = `
     insert into pre_Avaliacao (Nome, Sobrenome, Email, Telefone, Data_Nascimento, Mensaagem)
-                               values (?, ?, ?, ?, ?, ?)
+                               values (?, ?, ?, ?, ?, ?);
     
     `; 
 
@@ -20,11 +20,10 @@ export async function consultarAvaliacao() {
             Nome                Nome,
             Sobrenome           Sobrenome, 
             Email               Email,
-            Telefone            Celular,
-            Data_Nascimento     Date
+            Telefone            Telefone,
+            Data_Nascimento     Date,
             Mensaagem           Text
     FROM avaliacao;
-        
     `; 
      
 

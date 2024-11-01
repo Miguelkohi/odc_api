@@ -10,9 +10,6 @@ export function gerarToken(userInfo) {
 }
 
 
-export function autenticar(req, resp, next) {
-  return autenticacao(req, resp, next);
-}
 
 
 
@@ -34,4 +31,8 @@ export function autenticacao(req, resp, next) {
   } catch (e) {
     resp.status(401).end();
   }
+}
+
+export function autenticar(req, resp, next) {
+  return autenticacao(req, resp, next);
 }
