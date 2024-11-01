@@ -16,7 +16,7 @@ export async function inserirAvaliacao(avaliacao) {
 
 export async function consultarAvaliacao() {
     const comando =  `
-    SELECT Id_PreAvaliacao      ID
+    SELECT Id_PreAvaliacao      ID,
             Nome                Nome,
             Sobrenome           Sobrenome, 
             Email               Email,
