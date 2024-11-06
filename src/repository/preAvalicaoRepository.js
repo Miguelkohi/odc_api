@@ -1,63 +1,70 @@
-import con from "./connection.js"; 
+import con from "./connection.js";
 
 export async function inserirAvaliacao(avaliacao) {
     const comando = `
-    insert into pre_Avaliacao (Nome, Sobrenome, Email, Telefone, Data_Nascimento, Mensaagem)
-                               values (?, ?, ?, ?, ?, ?);
-    
-    `; 
+        INSERT INTO Pre_Avalicao (Nome, Sobrenome, Email, Telefone, Data_Nascimento, Mensaagem)
+        VALUES (?, ?, ?, ?, ?, ?);
+    `;
 
+    const [resposta] = await con.query(comando, [
+        avaliacao.nome,
+        avaliacao.sobrenome,
+        avaliacao.email,
+        avaliacao.telefone,
+        avaliacao.data_Nascimento,
+        avaliacao.mensaagem
+    ]);
 
-    let resposta = await con.query (comando, [avaliacao.Nome, avaliacao.Sobrenome, avaliacao.Email, avaliacao.Telefone, avaliacao.Data_Nascimento, avaliacao.Mensagem])
-    let info = resposta [0]; 
-
-    return info.insertId; 
+    return resposta.insertId;
 }
 
 export async function consultarAvaliacao() {
-    const comando =  `
-    SELECT Id_PreAvaliacao      ID,
-            Nome                Nome,
-            Sobrenome           Sobrenome, 
-            Email               Email,
-            Telefone            Telefone,
-            Data_Nascimento     Date,
-            Mensaagem           Text
-    FROM avaliacao;
-    `; 
-     
+    const comando = `
+        SELECT Id_PreAvaliacao AS ID,
+               Nome,
+               Sobrenome,
+               Email,
+               Telefone,
+               Data_Nascimento AS Date,
+               Mensaagem AS Text
+        FROM Pre_Avalicao;
+    `;
 
-    let resposta = await con.query (comando); 
-    let registros = resposta [0]; 
-
-    return registros
+    const [registros] = await con.query(comando);
+    return registros;
 }
 
-export async function alterarAvaliacao(id, avaliacao){
+export async function alterarAvaliacao(id, avaliacao) {
     const comando = `
-        update Pre_Avaliacao set 
-                Nome =?, 
-                Sobrenome =?,
-                Email = ?,
-                Telefone = ?,  
-                Data_Nascimento = ?, 
-                Mensaagem = ?
-        where Id_PreAvaliacao = ?
-    `
-    let resposta = await con.query(comando,[avaliacao.Nome, avaliacao.Sobrenome, avaliacao.Email, avaliacao.Telefone, avaliacao.Data_Nascimento, avaliacao.Mensagem, id])
-    let info = resposta [0]; 
+        UPDATE Pre_Avalicao
+        SET Nome = ?, 
+            Sobrenome = ?, 
+            Email = ?, 
+            Telefone = ?, 
+            Data_Nascimento = ?, 
+            Mensaagem = ?
+        WHERE Id_PreAvaliacao = ?;
+    `;
 
-    return info.affectedRows; 
+    const [resposta] = await con.query(comando, [
+        avaliacao.nome,
+        avaliacao.sobrenome,
+        avaliacao.email,
+        avaliacao.telefone,
+        avaliacao.data_Nascimento,
+        avaliacao.mensaagem,
+        id
+    ]);
+
+    return resposta.affectedRows;
 }
 
-export async function removerAvaliacao(id){
+export async function removerAvaliacao(id) {
     const comando = `
-            delete from Pre_Avaliacao
-            where Id_PreAvaliacao = ?
-    `
+        DELETE FROM Pre_Avalicao
+        WHERE Id_PreAvaliacao = ?;
+    `;
 
-    let resposta = await con.query (comando, [id]); 
-    let info = resposta [0]; 
-
-    return info.affectedRows; 
+    const [resposta] = await con.query(comando, [id]);
+    return resposta.affectedRows;
 }
