@@ -1,62 +1,77 @@
 import con from './connection.js'; 
 
-export async function inserirInf (informacoes) {
+
+export async function inserirInf(informacoes) {
     const comando = `
-    insert into Agendas (Data, Hora_Inicial, Hora_Final, Observacoes)
-                        values (?, ?, ?, ?) 
+        INSERT INTO Agendamentos (Nome, Sobrenome, Telefone, Email, Data_Consulta)
+        VALUES (?, ?, ?, ?, ?)
     `; 
 
-    let resposta = await con.query (comando, [informacoes.data, informacoes.horaInicial, informacoes.horaFinal, informacoes.observacoes])
-    let info = resposta [0]; 
-
-    return info.inserId; 
+    let resposta = await con.query(comando, [
+        informacoes.nome, 
+        informacoes.sobrenome, 
+        informacoes.telefone, 
+        informacoes.email, 
+        informacoes.dataConsulta
+    ]);
+    
+    let info = resposta[0];
+    return info.insertId; 
 }
 
-export async function consultarAgenda(){
+export async function consultarAgenda() {
     const comando = `
-        select ID_Agenda                   ID, 
-        ID_Funcionario                     ID,
-        Data                               Data,
-        Hora_Inicial                       Horario,
-        Hora_Final                         Horario,
-        Obervacoes                         Text,
-        from Agendas
+        SELECT 
+            Id_Agendamento AS ID,
+            Nome,
+            Sobrenome,
+            Telefone,
+            Email,
+            Data_Consulta
+        FROM Agendamentos
     `;
 
-    let resposta = await con.query (comando);
-    let registros = resposta [0];
+    let resposta = await con.query(comando);
+    let registros = resposta[0];
 
-    return registros
-
+    return registros;
 }
 
-export async function alterarInf(id, informacoes){
+
+export async function alterarInf(id, informacoes) {
     const comando = `
-    update Agendas set
-            Data = ?,
-            Hora_Inicial = ?, 
-            Hora_Final = ?, 
-            Observacoes = ?
-        where ID_Agenda = ?;    
-    
-`
-    let resposta = await con.query ((comando), [informacoes.data, informacoes.horaInicial, informacoes.horaFinal, informacoes.observacoes, id])
-    let info = resposta [0];
+        UPDATE Agendamentos
+        SET 
+            Nome = ?, 
+            Sobrenome = ?, 
+            Telefone = ?, 
+            Email = ?, 
+            Data_Consulta = ?
+        WHERE Id_Agendamento = ?;
+    `;
+
+    let resposta = await con.query(comando, [
+        informacoes.nome,
+        informacoes.sobrenome,
+        informacoes.telefone,
+        informacoes.email,
+        informacoes.dataConsulta,
+        id
+    ]);
+    let info = resposta[0];
 
     return info.affectedRows;
 }
 
 
-export async function removeragendas (id){
-    const comando =   `
-    delete from Agendas
-    where ID_Agenda = ? 
+export async function removerAgendas(id) {
+    const comando = `
+        DELETE FROM Agendamentos
+        WHERE Id_Agendamento = ?
+    `;
 
-`
-
-    let resposta = await con.query(comando, [id]); 
-    let info = resposta[0]; 
+    let resposta = await con.query(comando, [id]);
+    let info = resposta[0];
 
     return info.affectedRows; 
 }
-

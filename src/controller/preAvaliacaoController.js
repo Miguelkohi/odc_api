@@ -13,8 +13,10 @@ endpoints.get('/preAvaliacao/', async (req, resp) => {
 
 endpoints.post('/preAvaliacao/', async (req, resp) => {
     try {
-        const dominio = req.body;
-        const id = await db.inserirAvaliacao(dominio);
+        const avaliacao = req.body;
+        console.log("Dados recebidos no POST:", avaliacao);  
+
+        const id = await db.inserirAvaliacao(avaliacao);  
 
         resp.send({ novoId: id });
     } catch (err) {
@@ -25,9 +27,11 @@ endpoints.post('/preAvaliacao/', async (req, resp) => {
 endpoints.put('/preAvaliacao/:id', async (req, resp) => {
     try {
         const id = req.params.id;
-        const dominio = req.body;
+        const avaliacao = req.body;
 
-        const linhasAfetadas = await db.alterarAvaliacao(id, dominio);
+        console.log("Dados recebidos no PUT:", avaliacao);  
+
+        const linhasAfetadas = await db.alterarAvaliacao(id, avaliacao);
         if (linhasAfetadas >= 1) {
             resp.send();
         } else {

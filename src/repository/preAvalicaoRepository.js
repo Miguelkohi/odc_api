@@ -2,7 +2,7 @@ import con from "./connection.js";
 
 export async function inserirAvaliacao(avaliacao) {
     const comando = `
-        INSERT INTO Pre_Avalicao (Nome, Sobrenome, Email, Telefone, Data_Nascimento, Mensaagem)
+        INSERT INTO Pre_Avalicao (Nome, Sobrenome, Email, Telefone, Data_Nascimento, Mensagem)
         VALUES (?, ?, ?, ?, ?, ?);
     `;
 
@@ -11,11 +11,11 @@ export async function inserirAvaliacao(avaliacao) {
         avaliacao.sobrenome,
         avaliacao.email,
         avaliacao.telefone,
-        avaliacao.data_Nascimento,
-        avaliacao.mensaagem
+        avaliacao.dataNascimento,  
+        avaliacao.mensagem         
     ]);
 
-    return resposta.insertId;
+    return resposta.insertId;  
 }
 
 export async function consultarAvaliacao() {
@@ -26,7 +26,7 @@ export async function consultarAvaliacao() {
                Email,
                Telefone,
                Data_Nascimento AS Date,
-               Mensaagem AS Text
+               Mensagem AS Text
         FROM Pre_Avalicao;
     `;
 
@@ -42,7 +42,7 @@ export async function alterarAvaliacao(id, avaliacao) {
             Email = ?, 
             Telefone = ?, 
             Data_Nascimento = ?, 
-            Mensaagem = ?
+            Mensagem = ?
         WHERE Id_PreAvaliacao = ?;
     `;
 
@@ -51,8 +51,8 @@ export async function alterarAvaliacao(id, avaliacao) {
         avaliacao.sobrenome,
         avaliacao.email,
         avaliacao.telefone,
-        avaliacao.data_Nascimento,
-        avaliacao.mensaagem,
+        avaliacao.dataNascimento,
+        avaliacao.mensagem,      
         id
     ]);
 
