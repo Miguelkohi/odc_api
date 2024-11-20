@@ -107,11 +107,6 @@ CREATE TABLE Pre_Avalicao(
 INSERT INTO Pre_Avalicao (Nome, Sobrenome, Email, Telefone, Data_Nascimento, Mensagem)
 VALUES ('Miguel', 'Cordeiro', 'miguel@gmail.com', '11914817025', '2024-12-25', 'teste');
 
-select * from Pre_Avalicao;
-
-ALTER TABLE Pre_Avalicao
-MODIFY COLUMN Telefone VARCHAR(15);
-
 
 CREATE TABLE Login_ADM(
 ID_Login INT AUTO_INCREMENT PRIMARY KEY,
@@ -123,7 +118,7 @@ INSERT INTO Login_ADM(Login, Senha)
 VAlUES ('24305737841', 'adm@1234'),
 ('123', '123');
 
-select * from Login_ADM;
+
 
 INSERT INTO servicos(nome_servico, descricao_servico)
 VALUES('Clareamento Dental','Clareamento Dental é um procedimento feito pelo profissional que visa tirar manchas mais intensas ao esmalte e ao dente.'),
